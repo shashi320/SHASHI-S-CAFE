@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Number Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      padding-top: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .game-container {
+      background: white;
+      padding: 30px;
+      max-width: 400px;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      width: 60%;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #444;
+    }
+
+    .restart {
+      margin-top: 20px;
+      background-color: #2196f3;
+    }
+
+    .restart:hover {
+      background-color: #0b7dda;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Guess the Number</h1>
+    <p>Guess a number between 1 and 100</p>
+    <input type="number" id="userGuess" min="1" max="100" />
+    <br />
+    <button onclick="checkGuess()">Check</button>
+    <p class="message" id="message"></p>
+    <button class="restart" onclick="startGame()">Restart</button>
+  </div>
+
+  <script>
+    let randomNumber;
+    let attempts;
+
+    function startGame() {
+      randomNumber = Math.floor(Math.random() * 100) + 1;
+      attempts = 0;
+      document.getElementById('message').textContent = '';
+      document.getElementById('userGuess').value = '';
+    }
+
+    function checkGuess() {
+      const userGuess = parseInt(document.getElementById('userGuess').value);
+      const message = document.getElementById('message');
+      attempts++;
+
+      if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+        message.textContent = "Please enter a valid number between 1 and 100.";
+        return;
+      }
+
+      if (userGuess === randomNumber) {
+        message.textContent = `🎉 Correct! You guessed it in ${attempts} tries.`;
+      } else if (userGuess < randomNumber) {
+        message.textContent = "Too low! Try again.";
+      } else {
+        message.textContent = "Too high! Try again.";
+      }
+    }
+
+    // Start the game initially
+    startGame();
+  </script>
+</body>
+</html>
+  
